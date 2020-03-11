@@ -5,13 +5,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import selenium.page.App;
 
+import java.net.MalformedURLException;
+
 public class TestWeWork {
     public static App app;
 
     @BeforeClass
-    public static void beforeAll(){
+    public static void beforeAll() throws MalformedURLException {
         app = new App();
-        app.loginWithCookie();
+        app. loginWithCookie();
         String phone="15600534762";
         app.toContact().delete(phone);
     }
@@ -31,6 +33,11 @@ public class TestWeWork {
     @Test
     public void deleteCurrentPage() throws InterruptedException {
         app.toContact().deleteCurrentPage();
+    }
+
+    @Test
+    public void importFromFile(){
+        app.toContact().importFromFile("/Users/szdl/Downloads/通讯录批量导入模板.xlsx");
     }
 
     @AfterClass

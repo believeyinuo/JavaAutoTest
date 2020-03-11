@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ContactPage extends BasePage {
@@ -37,6 +38,12 @@ public class ContactPage extends BasePage {
 //        Select select = new Select(findElement(By.cssSelector(".ww_checkbox")));
 //        select.getFirstSelectedOption().click();
 //        select.selectByIndex(0);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        waitClickable(By.cssSelector(".ww_checkbox"));
         List<WebElement> elements = driver.findElements(By.cssSelector(".ww_checkbox"));
         for (int i = 0; i < elements.size(); i ++) {
             elements.get(i).click();
@@ -51,4 +58,16 @@ public class ContactPage extends BasePage {
         return this;
     }
 
+    public void importFromFile(String path){
+        findElement(By.partialLinkText("批量导入/导出")).click();
+        findElement(By.linkText("文件导入")).click();
+        findElement(By.id("js_upload_file_input"), 0).sendKeys(path);
+        findElement(By.id("submit_csv")).click();
+        findElement(By.linkText("完成")).click();
+    }
+
+    public HashMap<String, String> getUserInfo(String keyword) {
+        //todo:
+        return new HashMap<>();
+    }
 }
