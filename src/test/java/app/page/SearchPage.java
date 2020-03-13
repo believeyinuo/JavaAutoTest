@@ -21,4 +21,9 @@ public class SearchPage extends BasePage{
         click(By.id("com.xueqiu.android:i/action_close"));
         return new App();
     }
+
+    public  SearchPage select(){
+        click(By.id("com.xueqiu.android:id/follow_btn"));
+        return this;
+    }
 }

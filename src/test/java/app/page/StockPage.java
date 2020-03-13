@@ -1,6 +1,11 @@
 package app.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StockPage extends BasePage {
     public StockPage deleteAll(){
@@ -12,8 +17,25 @@ public class StockPage extends BasePage {
         return this;
     }
 
-    public StockPage getAllStocks(){
-        driver.findElement(By.id("comxueqiu.android"));
-        return new StockPage();
+    public List<String> getAllStocks(){
+
+        handleAlert();
+
+        List<String> stocks = new ArrayList<>();
+        findElements(By.id("com.xueqiu.android:id/portfolio_stockName")).forEach(element-> {
+            stocks.add(element.getText());
+        });
+        System.out.println(stocks);
+        return stocks;
+    }
+
+    public StockPage addDefaultSelectedStocks() {
+        click(By.id("com.xueqiu.android:id/add_to_portfolio_stock"));
+        return this;
+    }
+
+    public SearchPage toSearch(){
+        click(By.id("com.xueqiu.android:id/action_search"));
+        return new SearchPage();
     }
 }

@@ -5,9 +5,12 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,8 +27,12 @@ public class App extends BasePage{
         URL remoteUrl = new URL("http//127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
+        new WebDriverWait(driver, 30).until(x -> {
+            String xml = driver.getPageSource();
+            return xml.contains("home_search") || xml.contains("image_cancel");
+        });
     }
 
     public static SearchPage toSearch(){
