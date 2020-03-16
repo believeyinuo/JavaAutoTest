@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,19 +30,25 @@ public class TestSearch {
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]    {
-                {"alibaba", 100f},
-                {"xiaomi", 8f},
-                {"jd", 33f}
-        });
+    public static Collection<Object[]> data() throws IOException {
+//        return Arrays.asList(new Object[][]    {
+//                {"alibaba", 100f},
+//                {"xiaomi", 8f},
+//                {"jd", 33f}
+//        });
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        String path="/"+TestSearch.class.getCanonicalName().replace('.', '/')+".yaml";
+        Object[][] demo = mapper.readValue(
+                TestSearch.class.getResourceAsStream(path),
+                Object[][].class);
+        return Arrays.asList(demo);
     }
 
     @Parameterized.Parameter(0)
     public String stock;
 
     @Parameterized.Parameter(1)
-    public Float  price;
+    public Double  price;
 
     @Before
     public void before() {
@@ -50,7 +57,7 @@ public class TestSearch {
 
     @Test
     public void search(){
-        assertThat(searchPage.search(stock).getCurrentPrice(), greaterThanOrEqualTo(price));
+        assertThat(searchPage.search(stock).getCurrentPrice(), greaterThanOrEqualTo(price.floatValue()));
     }
 
     @After
