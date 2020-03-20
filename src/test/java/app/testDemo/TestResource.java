@@ -1,10 +1,7 @@
 package app.testDemo;
 
-import jdk.internal.org.objectweb.asm.TypeReference;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class TestResource {
     public String name;
@@ -14,9 +11,9 @@ public class TestResource {
     public void readFile(){
         System.out.println(this.getClass().getResource("/"));
 
-        System.out.println(this.getClass().getResource("/app/TestStock.yaml"));
+        System.out.println(this.getClass().getResource("/app/testcase/TestStock.yaml"));
 
-        new File(this.getClass().getResource("/app/TestStock.yaml").getPath()).toString();
+        new File(this.getClass().getResource("/app/testcase/TestStock.yaml").getPath()).toString();
 
 
     }

@@ -46,7 +46,7 @@ public class TestStock {
 //    @ValueSource(strings = {"pdd"})
     @MethodSource("data")
     public void addStock(String code, String name){
-        stockPage.toSearch().search(code).select().cancel(); 
+        stockPage.toSearch().search(code).select().cancel();
         assertThat(stockPage.getAllStocks(), hasItem(name));
     }
 
